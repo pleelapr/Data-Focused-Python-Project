@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 
 PATH_RESULT = 'result'
 
+#From different project
 def clean_tweet(tweet): 
 	return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
@@ -27,6 +28,7 @@ for filename in os.listdir(PATH_RESULT):
 
 # print(tweets[0:6])
 
+#Clean 
 for i in range(len(tweets)):
 	tweets.loc[i,'tweetText'] = clean_tweet(tweets.loc[i,'tweetText'])
 
