@@ -34,8 +34,7 @@ for tweet in c.items():
 		tweetJson.append(
 		{'tweetText':tweet.text,
 		'tweetCreatedAt':createdAt,
-		'authorName': tweet.place,
-		'location': tweet.author.name,
+		'authorName': tweet.author.name,
 		})
 #dump the data into json format
 
