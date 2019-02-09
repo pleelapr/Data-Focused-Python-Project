@@ -27,15 +27,16 @@ c.pages(500) # you can change it make get tweets
 #Lets save the selected part of the tweets inot json
 tweetJson = []
 for tweet in c.items():
-    if tweet.lang == 'en':
-        createdAt = str(tweet.created_at)
-        authorCreatedAt = str(tweet.author.created_at)
-        tweetJson.append(
-          {'tweetText':tweet.text,
-          'tweetCreatedAt':createdAt,
-          'authorName': tweet.author.name,
-          'location': tweet.author.name,
-          })
+	# print(tweet)
+	if tweet.lang == 'en':
+		createdAt = str(tweet.created_at)
+		authorCreatedAt = str(tweet.author.created_at)
+		tweetJson.append(
+		{'tweetText':tweet.text,
+		'tweetCreatedAt':createdAt,
+		'authorName': tweet.place,
+		'location': tweet.author.name,
+		})
 #dump the data into json format
 
 tweet_df = pd.DataFrame(tweetJson)
