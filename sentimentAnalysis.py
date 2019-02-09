@@ -47,6 +47,6 @@ for i in range(len(tweets)):
 
 # print(tweets[0:6])
 
-# picking positive tweets from tweets 
-tweets_sentiment = tweets.groupby('sentiment').count()
+# get each sentiment number
+tweets_sentiment = tweets['sentiment'].value_counts()
 print(tweets_sentiment)
