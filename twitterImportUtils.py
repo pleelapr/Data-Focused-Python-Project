@@ -15,6 +15,7 @@ consumer_key = 'DrGOIXEKRwMecmdGsPO8C9GuV'
 consumer_secret = 'I8KTilKpecXVW9BEjkHu2OqXVZoXAPXy3PIKR0KplQ75yMoq7w'
 access_token = '264665590-ZQUkBKt8LuPtpJGJ21rQGDg842rCojtmCYBbcGnP'
 access_token_secret = 'sSMrpla9SRtQs76298XjR0p3nUVxobGs7FyTJXth2F77U'
+
 # Authenticate twitter Api
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -43,4 +44,4 @@ tweet_df = pd.DataFrame(tweetJson)
 tweet_df.to_csv(os.path.join(PATH_RESULT,str(ts)+'_'+'tweets.csv'), index=False)
 # print(json.dumps(tweetJson))
 
-print(tweet_df)
+# print(tweet_df)
