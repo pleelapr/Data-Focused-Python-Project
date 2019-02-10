@@ -2,11 +2,10 @@ import pandas as pd
 import csv
 import os
 import re
+import datetime
 from textblob import TextBlob
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
+
 
 PATH_RESULT = 'result'
 
@@ -31,22 +30,27 @@ def get_tweet_sentiment(tweet):
 	else: 
 		return 'negative'
 
-tweets = pd.DataFrame()
+def get_tweets():
+	tweets = pd.DataFrame()
 
-for filename in os.listdir(PATH_RESULT):
-	data = pd.read_csv(PATH_RESULT+'/'+filename)
-	# print(data)
-	tweets = tweets.append(data)
+	for filename in os.listdir(PATH_RESULT):
+		data = pd.read_csv(PATH_RESULT+'/'+filename)
+		# print(data)
+		tweets = tweets.append(data)
 
-tweets.drop_duplicates(inplace=True)
+	tweets.drop_duplicates(inplace=True)
 
-#Clean 
-for i in range(len(tweets)):
-	tweets.loc[i,'tweetText'] = clean_tweet(tweets.loc[i,'tweetText'])
-	tweets.loc[i,'sentiment']= get_tweet_sentiment(tweets.loc[i,'tweetText'])
+	#Clean 
+	for i in range(len(tweets)):
+		tweets.loc[i,'tweetText'] = clean_tweet(tweets.loc[i,'tweetText'])
+		tweets.loc[i,'sentiment']= get_tweet_sentiment(tweets.loc[i,'tweetText'])
+	tweets['Date'] = tweets['Date'].str.slice(0, 10)
+	tweets['Date'] = pd.to_datetime(tweets['Date'])
+	print(tweets['Date'])
+	return tweets
 
-# print(tweets[0:6])
+def main():
+	# get each sentiment number
+	tweets_sentiment = tweets['sentiment'].value_counts()
+	print(tweets_sentiment)
 
-# get each sentiment number
-tweets_sentiment = tweets['sentiment'].value_counts()
-print(tweets_sentiment)

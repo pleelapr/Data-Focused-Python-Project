@@ -23,18 +23,18 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 #made a cursor
 c = tweepy.Cursor(api.search, q='%23AAPL')
-c.pages(500) # you can change it make get tweets
+c.pages(10000) # you can change it make get tweets
 
 #Lets save the selected part of the tweets inot json
 tweetJson = []
+
 for tweet in c.items():
-	# print(tweet)
 	if tweet.lang == 'en':
 		createdAt = str(tweet.created_at)
 		authorCreatedAt = str(tweet.author.created_at)
 		tweetJson.append(
 		{'tweetText':tweet.text,
-		'tweetCreatedAt':createdAt,
+		'Date':createdAt,
 		'authorName': tweet.author.name,
 		})
 #dump the data into json format
