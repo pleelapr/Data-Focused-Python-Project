@@ -7,14 +7,14 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
 import sentimentAnalysis as sa
-import stockImport as si
+import Apple_stock_scrape as si
 
 EXPORT_PATH = 'analysis_data'
 date = datetime.datetime.now()
 
 
 tweets_data = sa.get_tweets()
-stock_data = si.get_stock_csv()
+stock_data = si.get_stock()
 
 print(tweets_data[0:6])
 print(stock_data[0:6])
