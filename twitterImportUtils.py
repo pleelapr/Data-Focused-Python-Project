@@ -29,7 +29,7 @@ api = tweepy.API(auth)
 tweetList = []
 
 # Mention the maximum number of tweets that you want to be extracted.
-maximum_number_of_tweets_to_be_extracted = 5000
+maximum_number_of_tweets_to_be_extracted = 1000
 
 # Mention the hashtag that you want to look out for
 hashtag = 'AAPL'
