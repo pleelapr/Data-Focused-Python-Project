@@ -22,26 +22,49 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 #made a cursor
-c = tweepy.Cursor(api.search, q='%23AAPL')
-c.pages(10000) # you can change it make get tweets
+# c = tweepy.Cursor(api.search, q='%23AAPL', tweet_mode='extended')
+# c.pages(10000) # you can change it make get tweets
 
 #Lets save the selected part of the tweets inot json
-tweetJson = []
+tweetList = []
 
-for tweet in c.items():
+# Mention the maximum number of tweets that you want to be extracted.
+maximum_number_of_tweets_to_be_extracted = 5000
+
+# Mention the hashtag that you want to look out for
+hashtag = 'AAPL'
+
+for tweet in tweepy.Cursor(api.search, q='%24'+hashtag, rpp=100, tweet_mode='extended').items(maximum_number_of_tweets_to_be_extracted):
 	if tweet.lang == 'en':
 		createdAt = str(tweet.created_at)
 		authorCreatedAt = str(tweet.author.created_at)
-		tweetJson.append(
-		{'tweetText':tweet.text,
+		tweetList.append(
+		{'tweetText':tweet.full_text,
 		'Date':createdAt,
 		'authorName': tweet.author.name,
 		})
-#dump the data into json format
-
-tweet_df = pd.DataFrame(tweetJson)
-
+	# with open('tweets_with_hashtag_' + hashtag + '.txt', 'a') as the_file:
+	# 	the_file.write(str(tweet.text.encode('utf-8')) + '\n')
+tweet_df = pd.DataFrame(tweetList)
 tweet_df.to_csv(os.path.join(PATH_RESULT,str(ts)+'_'+'tweets.csv'), index=False)
+
+print ('Extracted ' + str(maximum_number_of_tweets_to_be_extracted) + ' tweets with hashtag #' + hashtag)
+
+
+# for tweet in c.items():
+# 	if tweet.lang == 'en':
+# 		createdAt = str(tweet.created_at)
+# 		authorCreatedAt = str(tweet.author.created_at)
+# 		tweetJson.append(
+# 		{'tweetText':tweet.full_text,
+# 		'Date':createdAt,
+# 		'authorName': tweet.author.name,
+# 		})
+# #dump the data into json format
+
+# tweet_df = pd.DataFrame(tweetJson)
+
+# tweet_df.to_csv(os.path.join(PATH_RESULT,str(ts)+'_'+'tweets.csv'), index=False)
 # print(json.dumps(tweetJson))
 
 # print(tweet_df)
