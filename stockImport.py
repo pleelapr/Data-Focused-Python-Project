@@ -17,16 +17,24 @@ stock_name = "AAPL"
 def get_stock_csv():
 	#Get Stock Detail
 	stock_detail = pd.read_csv(EXPORT_PATH+'/'+'APPL best.csv')
+	
+	stock_detail = stock_detail[4:]
+	stock_detail.columns = stock_detail.iloc[0]
+	stock_detail.reset_index()
+	stock_detail = stock_detail.iloc[1:]
+
+	# print(stock_detail)
 	# cols = stock_detail.columns
 	stock_detail.drop_duplicates(inplace=True)
-
+	stock_detail.dropna(inplace=True, how='any', axis=0)
 	stock_detail.reset_index(inplace=True)
+	
 	# print(stock_detail['Adj. Close'])
 	stock_result = pd.DataFrame()
-
-	stock_result['Date'] = pd.to_datetime(stock_detail.Dates.astype(str), errors='coerce')
-	stock_result['BEST_TARGET_PRICE'] = pd.to_numeric(stock_detail.BEST_TARGET_PRICE, errors='coerce')
-	# stock_result['PX_LAST'] = pd.to_numeric(stock_detail.PX_LAST, errors='coerce')
+	# print(stock_detail['Dates'])
+	stock_result['Date'] = pd.to_datetime(stock_detail['Dates'].astype(str), errors='coerce')
+	stock_result['BEST_TARGET_PRICE'] = pd.to_numeric(stock_detail['BEST_TARGET_PRICE'], errors='coerce')
+	stock_result['PX_LAST'] = pd.to_numeric(stock_detail['PX_LAST'], errors='coerce')
 
 	stock_result['Date'] = pd.to_datetime(stock_result['Date'])
 
